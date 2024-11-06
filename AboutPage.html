@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash - About Us</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            line-height: 1.5;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 100;
+            padding: 1rem 2rem;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        .about-hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            color: #888;
+            margin-bottom: 2rem;
+        }
+
+        .mission-section {
+            padding: 8rem 2rem;
+            background: #080808;
+        }
+
+        .mission-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+        }
+
+        .mission-text {
+            padding: 2rem;
+        }
+
+        .mission-text h2 {
+            font-size: 36px;
+            color: #4ECDC4;
+            margin-bottom: 2rem;
+        }
+
+        .mission-text p {
+            font-size: 18px;
+            color: #888;
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-stats {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 36px;
+            color: #FF6B6B;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            color: #888;
+        }
+
+        .team-section {
+            padding: 8rem 2rem;
+            background: #000;
+        }
+
+        .team-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .team-header h2 {
+            font-size: 36px;
+            color: #4ECDC4;
+            margin-bottom: 1rem;
+        }
+
+        .team-header p {
+            color: #888;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .member-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 60px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #fff;
+        }
+
+        .team-member h3 {
+            font-size: 24px;
+            color: #4ECDC4;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member h4 {
+            color: #FF6B6B;
+            margin-bottom: 1rem;
+        }
+
+        .team-member p {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: #888;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #4ECDC4;
+        }
+
+        .values-section {
+            padding: 8rem 2rem;
+            background: #080808;
+        }
+
+        .values-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .values-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .values-header h2 {
+            font-size: 36px;
+            color: #4ECDC4;
+            margin-bottom: 1rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .value-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .value-card h3 {
+            font-size: 24px;
+            color: #4ECDC4;
+            margin-bottom: 1rem;
+        }
+
+        .value-card p {
+            color: #888;
+        }
+
+        .culture-section {
+            padding: 8rem 2rem;
+            background: #000;
+            text-align: center;
+        }
+
+        .culture-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .culture-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .culture-item h3 {
+            font-size: 24px;
+            color: #4ECDC4;
+            margin-bottom: 1rem;
+        }
+
+        .culture-item p {
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="logo">Flash</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="platform.html">Platform</a>
+                <a href="technology.html">Technology</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="about-hero">
+        <div class="hero-content">
+            <h1>Transforming Venture Capital</h1>
+            <p>We're building the future of startup investment through AI-powered intelligence and data-driven insights.</p>
+        </div>
+    </section>
+
+    <section class="mission-section">
+        <div class="mission-content">
+            <div class="mission-text">
+                <h2>Our Mission</h2>
+                <p>Flash is revolutionizing the venture capital landscape by leveraging advanced AI technology to identify and nurture the most promising startups. We believe in creating a more efficient, transparent, and data-driven investment ecosystem that benefits both investors and founders.</p>
+                <p>Our mission is to democratize access to capital by removing human bias and providing objective, data-driven insights that help great ideas get the funding they deserve.</p>
+            </div>
+            <div class="mission-stats">
+                <div class="stat-item">
+                    <h3>47K+</h3>
+                    <p>Data Points Analyzed</p>
+                </div>
+                <div class="stat-item">
+                    <h3>85%+</h3>
+                    <p>Prediction Accuracy</p>
+                </div>
+                <div class="stat-item">
+                    <h3>1000+</h3>
+                    <p>Startups Analyzed</p>
+                </div>
+                <div class="stat-item">
+                    <h3>$2B+</h3>
+                    <p>Investment Facilitated</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="team-section">
+        <div class="team-content">
+            <div class="team-header">
+                <h2>Our Leadership Team</h2>
+                <p>Meet the visionaries and experts behind Flash's revolutionary technology</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-photo">A</div>
+                    <h3>Alex Chen</h3>
+                    <h4>CEO & Co-founder</h4>
+                    <p>Former VP at Goldman Sachs AI Division with 15+ years of experience in finance and technology. Led development of multiple successful fintech platforms.</p>
+                    <div class="social-links">
+                        <a href="#">LinkedIn</a>
+                        <a href="#">Twitter</a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">S</div>
+                    <h3>Sarah Kumar</h3>
+                    <h4>CTO & Co-founder</h4>
+                    <p>PhD in Machine Learning from MIT. Previously led AI research teams at Google and developed pioneering algorithms in predictive analytics.</p>
+                    <div class="social-links">
+                        <a href="#">LinkedIn</a>
+                        <a href="#">Twitter</a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">M</div>
+                    <h3>Michael Zhang</h3>
+                    <h4>Head of Research</h4>
+                    <p>Former Lead Data Scientist at Google with expertise in large-scale machine learning systems and predictive modeling.</p>
+                    <div class="social-links">
+                        <a href="#">LinkedIn</a>
+                        <a href="#">Twitter</a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">R</div>
+                    <h3>Rachel Moore</h3>
+                    <h4>Head of Product</h4>
+                    <p>Previously Product Lead at Sequoia Capital. Expert in product strategy and venture capital operations with 10+ years experience.</p>
+                    <div class="social-links">
+                        <a href="#">LinkedIn</a>
+                        <a href="#">Twitter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="values-section">
+        <div class="values-content">
+            <div class="values-header">
+                <h2>Our Values</h2>
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">↗</div>
+                    <h3>Innovation</h3>
+                    <p>Pushing the boundaries of what's possible in venture capital through cutting-edge technology</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">⚖</div>
+                    <h3>Transparency</h3>
+                    <p>Building trust through clear, data-driven insights and open communication</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">★</div>
+                    <h3>Excellence</h3>
+                    <p>Maintaining the highest standards in our technology and service</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">⟳</div>
+                    <h3>Impact</h3>
+                    <p>Creating meaningful change in how great ideas get funded</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="culture-section">
+        <div class="culture-content">
+            <h2 style="font-size: 36px; color: #4ECDC4; margin-bottom: 1rem;">Our Culture</h2>
+            <p style="color: #888; max-width: 600px; margin: 0 auto;">We're building a diverse, inclusive workplace where creativity and innovation thrive.</p>
+            <div class="culture-grid">
+                <div class="culture-item">
+                    <h3>Innovation First</h3>
+                    <p>We encourage bold thinking and creative problem-solving</p>
