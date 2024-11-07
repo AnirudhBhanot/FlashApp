@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash - Platform</title>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            line-height: 1.5;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 100;
+            padding: 1rem 2rem;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        /* Hero Section */
+        .platform-hero {
+            padding: 180px 2rem 100px;
+            text-align: center;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+        }
+
+        .platform-hero h1 {
+            font-size: 56px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .platform-hero p {
+            font-size: 20px;
+            color: #888;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat h3 {
+            font-size: 36px;
+            color: #4ECDC4;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-stat p {
+            color: #888;
+            font-size: 16px;
+        }
+
+        /* Platform Features */
+        .platform-features {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .feature-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8rem;
+            gap: 4rem;
+        }
+
+        .feature-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-text h2 {
+            font-size: 36px;
+            margin-bottom: 1.5rem;
+            color: #4ECDC4;
+        }
+
+        .feature-text p {
+            color: #888;
+            font-size: 18px;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        /* Startup Discovery Interface */
+        .interface-mockup {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            height: 500px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .discovery-interface {
+            display: flex;
+            height: 100%;
+            gap: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+        }
+
+        .discovery-sidebar {
+            width: 240px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .filter-section {
+            margin-bottom: 20px;
+        }
+
+        .filter-section h4 {
+            color: #4ECDC4;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .filter-option {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-option:hover {
+            background: rgba(78, 205, 196, 0.1);
+            color: #4ECDC4;
+        }
+
+        .filter-option.active {
+            background: rgba(78, 205, 196, 0.2);
+            color: #4ECDC4;
+        }
+
+        .discovery-main {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .startup-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .startup-card:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .startup-card h3 {
+            color: #fff;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .startup-description {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .startup-metrics {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .startup-metric {
+            background: rgba(78, 205, 196, 0.1);
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: #4ECDC4;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .startup-metric.growth {
+            background: rgba(255, 107, 107, 0.1);
+            color: #FF6B6B;
+        }
+
+        .search-bar {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-bar input {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 14px;
+            width: 100%;
+            outline: none;
+        }
+
+        .search-bar input::placeholder {
+            color: #888;
+        }
+
+        .sort-options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .sort-option {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sort-option:hover {
+            background: rgba(78, 205, 196, 0.1);
+            color: #4ECDC4;
+        }
+
+        .sort-option.active {
+            background: rgba(78, 205, 196, 0.2);
+            color: #4ECDC4;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="logo">Flash</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="platform.html">Platform</a>
+                <a href="technology.html">Technology</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="platform-hero">
+        <h1>Unlock the Power of Startup DNA</h1>
+        <p>Flash's AI-powered platform revolutionizes venture capital by providing unparalleled startup analysis, discovery, and investor matching capabilities.</p>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <h3>47K+</h3>
+                <p>Data Points Analyzed</p>
+            </div>
+            <div class="hero-stat">
+                <h3>85%+</h3>
+                <p>Prediction Accuracy</p>
+            </div>
+            <div class="hero-stat">
+                <h3>500ms</h3>
+                <p>Analysis Speed</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="platform-features">
+        <!-- Startup Discovery Section -->
+        <div class="feature-row">
+            <div class="feature-text">
+                <h2>AI-Powered Startup Discovery</h2>
+                <p>Our advanced discovery engine continuously scans and analyzes the startup ecosystem to identify promising opportunities before they become obvious.</p>
+                <div class="feature-stats">
+                    <div class="stat-card">
+                        <h3>Real-time Monitoring</h3>
+                        <p>Continuous analysis of startup performance and market dynamics</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Smart Filtering</h3>
+                        <p>Advanced filters based on industry, stage, traction, and potential</p>
+                    </div>
+                </div>
+            </div>
+            <div class="interface-mockup">
+                <div class="discovery-interface">
+                    <div class="discovery-sidebar">
+                        <div class="filter-section">
+                            <h4>Industry</h4>
+                            <div class="filter-option active">AI & Machine Learning</div>
+                            <div class="filter-option">FinTech</div>
+                            <div class="filter-option">HealthTech</div>
+                            <div class="filter-option">Web3</div>
+                        </div>
+                        <div class="filter-section">
+                            <h4>Stage</h4>
+                            <div class="filter-option">Pre-seed</div>
+                            <div class="filter-option active">Seed</div>
+                            <div class="filter-option">Series A</div>
+                            <div class="filter-option">Series B+</div>
+                        </div>
+                        <div class="filter-section">
+                            <h4>Traction</h4>
+                            <div class="filter-option active">High Growth</div>
+                            <div class="filter-option">Product-Market Fit</div>
+                            <div class="filter-option">Early Validation</div>
+                        </div>
+                    </div>
+                    <div class="discovery-main">
+                        <div class="search-bar">
+                            <input type="text" placeholder="Search startups...">
+                        </div>
+                        <div class="sort-options">
+                            <div class="sort-option active">Relevance</div>
+                            <div class="sort-option">Growth</div>
+                            <div class="sort-option">Latest</div>
+                        </div>
+                        <div class="startup-card">
+                            <h3>TechFlow AI</h3>
+                            <p class="startup-description">AI-powered workflow automation platform revolutionizing enterprise productivity</p>
+                            <div class="startup-metrics">
+                                <span class="startup-metric growth">94% Growth</span>
+                                <span class="startup-metric">Series A</span>
+                                <span class="startup-metric">AI/ML</span>
+                            </div>
+                        </div>
+                        <div class="startup-card">
+                            <h3>HealthSync</h3>
+                            <p class="startup-description">Next-generation digital health monitoring system with predictive analytics</p>
+                            <div class="startup-metrics">
+                                <span class="startup-metric growth">88% Match</span>
+                                <span class="startup-metric">Seed</span>
+                                <span class="startup-metric">HealthTech</span>
+                            </div>
+                        </div>
+                        <div class="startup-card">
+                            <h3>FinSecure</h3>
+                            <p class="startup-description">Enterprise-grade blockchain security solutions for financial institutions</p>
+                            <div class="startup-metrics">
+                                <span class="startup-metric growth">92% Potential</span>
+                                <span class="startup-metric">Series A</span>
+                                <span class="startup-metric">FinTech</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
