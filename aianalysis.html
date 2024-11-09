@@ -3,120 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flash - Platform</title>
+    <title>Flash - AI Analysis Dashboard</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
 
         body {
             background-color: #000;
             color: #fff;
-            line-height: 1.5;
+            min-height: 100vh;
         }
-        /* Previous shared styles included */
-        
-        /* Enhanced AI Analysis Dashboard Styles */
+
         .analysis-dashboard {
-            height: 100%;
-            background: black;
-            border-radius: 15px;
-            padding: 20px;
+            min-height: 100vh;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: grid;
+            grid-template-columns: 260px 1fr;
+        }
+
+        /* Navigation Sidebar */
+        .dashboard-nav {
+            background: rgba(28, 28, 30, 0.6);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 24px;
             display: flex;
             flex-direction: column;
+            gap: 24px;
         }
 
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            padding-bottom: 20px;
+        .nav-header {
+            padding-bottom: 24px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 20px;
         }
 
-        .company-info h3 {
-            color: #fff;
-            font-size: 20px;
-            margin-bottom: 5px;
+        .company-logo {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .verified-badge {
-            width: 16px;
-            height: 16px;
+        .company-logo .verified {
             background: #4ECDC4;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
             color: #000;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 12px;
         }
 
         .company-meta {
-            display: flex;
-            gap: 15px;
-        }
-
-        .meta-item {
-            color: #888;
             font-size: 13px;
+            color: #888;
             display: flex;
-            align-items: center;
-            gap: 5px;
+            flex-direction: column;
+            gap: 4px;
         }
 
-        .analysis-tabs {
+        .nav-sections {
             display: flex;
-            gap: 20px;
-            margin-bottom: 25px;
+            flex-direction: column;
+            gap: 8px;
         }
 
-        .analysis-tab {
+        .nav-section {
+            padding: 12px 16px;
+            border-radius: 12px;
             color: #888;
             font-size: 14px;
             cursor: pointer;
-            padding: 8px 16px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .analysis-tab.active {
-            background: rgba(78, 205, 196, 0.1);
+        .nav-section.active {
+            background: rgba(78, 205, 196, 0.15);
             color: #4ECDC4;
         }
 
+        .nav-section:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        /* Main Content Area */
+        .dashboard-content {
+            padding: 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .action-button {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-button.primary {
+            background: rgba(78, 205, 196, 0.15);
+            color: #4ECDC4;
+        }
+
+        .action-button.secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #888;
+        }
+
+        /* Key Metrics Grid */
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
         }
 
         .metric-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 15px;
-            transition: transform 0.3s ease;
+            background: rgba(28, 28, 30, 0.6);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
 
         .metric-card:hover {
             transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(78, 205, 196, 0.3);
         }
 
         .metric-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .metric-title {
             color: #888;
-            font-size: 13px;
+            font-size: 14px;
         }
 
         .metric-trend {
-            font-size: 12px;
+            font-size: 13px;
             display: flex;
             align-items: center;
             gap: 4px;
@@ -131,47 +191,50 @@
         }
 
         .metric-value {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 600;
-            margin-bottom: 5px;
+            color: #fff;
+            margin-bottom: 8px;
         }
 
-        .metric-value.excellent {
-            color: #4ECDC4;
+        .metric-chart {
+            height: 40px;
+            position: relative;
         }
 
-        .metric-value.good {
-            color: #FFB86C;
+        .progress-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
         }
 
-        .metric-value.average {
-            color: #FF6B6B;
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4ECDC4, #FF6B6B);
+            border-radius: 2px;
+            transition: width 0.3s ease;
         }
 
-        .analysis-content {
+        /* Analysis Grid */
+        .analysis-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 20px;
-            flex: 1;
-        }
-
-        .main-analysis {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            gap: 24px;
         }
 
         .analysis-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 20px;
+            background: rgba(28, 28, 30, 0.6);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .card-title {
@@ -182,24 +245,42 @@
 
         .card-actions {
             display: flex;
-            gap: 10px;
+            gap: 12px;
         }
 
         .card-action {
             color: #888;
-            font-size: 12px;
+            font-size: 13px;
+            padding: 4px 12px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: color 0.3s ease;
+            transition: all 0.2s ease;
         }
 
-        .card-action:hover {
+        .card-action.active {
+            background: rgba(78, 205, 196, 0.15);
             color: #4ECDC4;
         }
 
-        .progress-chart {
-            height: 180px;
+        /* Charts and Visualizations */
+        .chart-container {
+            height: 300px;
             position: relative;
-            margin-bottom: 15px;
+        }
+
+        .chart-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .grid-line {
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .chart-line {
@@ -208,39 +289,78 @@
             left: 0;
             width: 100%;
             height: 2px;
+            background: linear-gradient(90deg, #4ECDC4 0%, #FF6B6B 100%);
+            transform-origin: left;
+            animation: chartLine 2s ease-out forwards;
+        }
+
+        @keyframes chartLine {
+            from {
+                transform: scaleX(0);
+            }
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        /* Data Points */
+        .data-point {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #4ECDC4;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .data-line {
+            position: absolute;
+            height: 2px;
             background: rgba(78, 205, 196, 0.3);
+            transform-origin: left;
         }
 
-        .chart-markers {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-        }
-
-        .chart-marker {
-            color: #888;
+        /* Tooltip */
+        .tooltip {
+            position: absolute;
+            background: rgba(28, 28, 30, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 8px 12px;
             font-size: 12px;
+            color: #fff;
+            pointer-events: none;
+            transform: translate(-50%, -100%);
+            margin-top: -8px;
+            z-index: 100;
         }
 
-        .insight-list {
-            list-style: none;
+        /* Insights List */
+        .insights-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 24px;
         }
 
         .insight-item {
             display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 8px;
-            margin-bottom: 10px;
+            gap: 16px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .insight-item:hover {
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .insight-icon {
-            width: 24px;
-            height: 24px;
+            width: 32px;
+            height: 32px;
             background: rgba(78, 205, 196, 0.1);
-            border-radius: 50%;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -256,234 +376,127 @@
         .insight-content p {
             color: #888;
             font-size: 13px;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
-        .side-analysis {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .comparison-table {
-            width: 100%;
-            border-spacing: 0;
-            margin-top: 15px;
-        }
-
-        .comparison-table th,
-        .comparison-table td {
-            padding: 8px;
-            text-align: left;
-            font-size: 13px;
-        }
-
-        .comparison-table th {
-            color: #888;
-            font-weight: normal;
-        }
-
-        .comparison-table td {
-            color: #fff;
-        }
-
-        .comparison-table tr:hover {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .risk-meter {
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 15px;
-        }
-
-        .risk-level {
-            height: 100%;
-            background: linear-gradient(90deg, #4ECDC4, #FF6B6B);
-            border-radius: 4px;
-        }
-
-        .tags-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 15px;
-        }
-
-        .analysis-tag {
-            background: rgba(255, 255, 255, 0.05);
-            color: #888;
-            padding: 6px 12px;
-            border-radius: 15px;
+        /* Status Indicators */
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
             font-size: 12px;
-            transition: all 0.3s ease;
+            font-weight: 500;
         }
 
-        .analysis-tag:hover {
+        .status-badge.positive {
             background: rgba(78, 205, 196, 0.1);
             color: #4ECDC4;
+        }
+
+        .status-badge.warning {
+            background: rgba(255, 184, 108, 0.1);
+            color: #FFB86C;
+        }
+
+        .status-badge.negative {
+            background: rgba(255, 107, 107, 0.1);
+            color: #FF6B6B;
         }
     </style>
 </head>
 <body>
-    <div class="platform-features">
-        <div class="feature-row">
-            <div class="feature-text">
-                <h2 style = "color:#4ECDC4;">Startup DNA Analysis™</h2>
-                <p style = "color:#fff;">Our proprietary technology analyzes over 47,000 data points to provide comprehensive insights into startup potential, team capabilities, and market opportunities.</p>
-                <div class="feature-stats">
-                    <div class="stat-card">
-                        <h3 style = "color:#4ECDC4;">Deep Analysis</h3>
-                        <p style = "color:#fff;">Comprehensive evaluation of startup performance</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3 style = "color:#4ECDC4;">Predictive Insights</h3>
-                        <p style = "color:#fff;">AI-powered growth trajectory forecasting</p>
-                    </div>
+    <div class="analysis-dashboard">
+        <!-- Navigation Sidebar -->
+        <nav class="dashboard-nav">
+            <div class="nav-header">
+                <div class="company-logo">
+                    TechFlow AI
+                    <span class="verified">✓</span>
+                </div>
+                <div class="company-meta">
+                    <span>AI/ML • Series A</span>
+                    <span>San Francisco, CA</span>
+                    <span>Last updated: Real-time</span>
                 </div>
             </div>
-            <div class="interface-mockup">
-                <div class="analysis-dashboard">
-                    <div class="dashboard-header">
-                        <div class="company-info">
-                            <h3>
-                                TechFlow AI
-                                <span class="verified-badge">✓</span>
-                            </h3>
-                            <div class="company-meta">
-                                <span class="meta-item">AI/ML</span>
-                                <span class="meta-item">Series A</span>
-                                <span class="meta-item">San Francisco</span>
-                                <span class="meta-item">Founded 2022</span>
-                            </div>
-                        </div>
-                        <div class="analysis-date">
-                            Last updated: Real-time
-                        </div>
+
+            <div class="nav-sections">
+                <div class="nav-section active">
+                    <span>Overview</span>
+                </div>
+                <div class="nav-section">
+                    <span>Market Analysis</span>
+                </div>
+                <div class="nav-section">
+                    <span>Team Analysis</span>
+                </div>
+                <div class="nav-section">
+                    <span>Financial Health</span>
+                </div>
+                <div class="nav-section">
+                    <span>Risk Assessment</span>
+                </div>
+                <div class="nav-section">
+                    <span>Technology Stack</span>
+                </div>
+                <div class="nav-section">
+                    <span>Customer Analytics</span>
+                </div>
+                <div class="nav-section">
+                    <span>Investment Potential</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="dashboard-content">
+            <div class="content-header">
+                <h1 class="header-title">AI Analysis Dashboard</h1>
+                <div class="header-actions">
+                    <button class="action-button secondary">Export Report</button>
+                    <button class="action-button primary">Schedule Demo</button>
+                </div>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">Market Fit Score</span>
+                        <span class="metric-trend trend-up">↑ 2.3%</span>
                     </div>
-
-                    <div class="analysis-tabs">
-                        <div class="analysis-tab active">Overview</div>
-                        <div class="analysis-tab">Market Analysis</div>
-                        <div class="analysis-tab">Team Analysis</div>
-                        <div class="analysis-tab">Financial Health</div>
+                    <div class="metric-value">94%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 94%"></div>
                     </div>
+                </div>
 
-                    <div class="metrics-grid">
-                        <div class="metric-card">
-                            <div class="metric-header">
-                                <span class="metric-title">Market Fit Score</span>
-                                <span class="metric-trend trend-up">↑ 2.3%</span>
-                            </div>
-                            <div class="metric-value excellent">94%</div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 94%"></div>
-                            </div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-header">
-                                <span class="metric-title">Team Score</span>
-                                <span class="metric-trend trend-up">↑ 1.5%</span>
-                            </div>
-                            <div class="metric-value excellent">88%</div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 88%"></div>
-                            </div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-header">
-                                <span class="metric-title">Growth Potential</span>
-                                <span class="metric-trend trend-up">↑ 3.1%</span>
-                            </div>
-                            <div class="metric-value excellent">92%</div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 92%"></div>
-                            </div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-header">
-                                <span class="metric-title">Risk Level</span>
-                                <span class="metric-trend trend-down">↓ 1.2%</span>
-                            </div>
-                            <div class="metric-value excellent">Low</div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 30%"></div>
-                            </div>
-                        </div>
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">Team Score</span>
+                        <span class="metric-trend trend-up">↑ 1.5%</span>
                     </div>
+                    <div class="metric-value">88%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 88%"></div>
+                    </div>
+                </div>
 
-                    <div class="analysis-content">
-                        <div class="main-analysis">
-                            <div class="analysis-card">
-                                <div class="card-header">
-                                    <span class="card-title">Growth Trajectory</span>
-                                    <div class="card-actions">
-                                        <span class="card-action">3M</span>
-                                        <span class="card-action">6M</span>
-                                        <span class="card-action active">1Y</span>
-                                    </div>
-                                </div>
-                                <div class="progress-chart">
-                                    <div class="chart-line"></div>
-                                </div>
-                                <div class="chart-markers">
-                                    <span class="chart-marker">Jan</span>
-                                    <span class="chart-marker">Mar</span>
-                                    <span class="chart-marker">Jun</span>
-                                    <span class="chart-marker">Sep</span>
-                                    <span class="chart-marker">Dec</span>
-                                </div>
-                            </div>
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">Growth Potential</span>
+                        <span class="metric-trend trend-up">↑ 3.1%</span>
+                    </div>
+                    <div class="metric-value">92%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 92%"></div>
+                    </div>
+                </div>
 
-                            <div class="analysis-card">
-                                <div class="card-header">
-                                    <span class="card-title">Key Insights</span>
-                                </div>
-                                <div class="insight-list">
-                                    <div class="insight-item">
-                                        <div class="insight-icon">↗</div>
-                                        <div class="insight-content">
-                                            <h4>Strong Market Position</h4>
-                                            <p>Leading position in enterprise AI automation with significant barriers to entry</p>
-                                        </div>
-                                    </div>
-                                    <div class="insight-item">
-                                        <div class="insight-icon">👥</div>
-                                        <div class="insight-content">
-                                            <h4>Exceptional Team</h4>
-                                            <p>Founding team combines deep technical expertise with proven startup success</p>
-                                        </div>
-                                    </div>
-                                    <div class="insight-item">
-                                        <div class="insight-icon">📈</div>
-                                        <div class="insight-content">
-                                            <h4>Rapid Growth</h4>
-                                            <p>300% YoY revenue growth with improving unit economics</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="side-analysis">
-                            <div class="analysis-card">
-                                <div class="card-header">
-                                    <span class="card-title">Market Comparison</span>
-                                </div>
-                                <table class="comparison-table">
-                                    <tr>
-                                        <th>Metric</th>
-                                        <th>Company</th>
-                                        <th>Industry Avg</th>
-                                    </tr>
-                                    <tr>
-                                        <td>Growth Rate</td>
-                                        <td>300%</td>
-                                        <td>150%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>CAC</td>
-                                        <td>$5,000</td>
-                                        <td>
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">Risk Level</span>
+                        <span class="metric-trend trend-down">↓ 1.2%</span>
+                    </div>
+                    <div class="metric-value">Low</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 30%"></div>
