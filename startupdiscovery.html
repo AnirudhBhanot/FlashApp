@@ -267,6 +267,7 @@
 </head>
 <body>
     <div class="discovery-interface">
+        <span style="font-size:20px;cursor:pointer" onclick="openNav()">&#9776; open</span>
         <aside class="sidebar">
             <div class="search-container">
                 <input type="text" class="search-bar" placeholder="Search startups...">
@@ -395,5 +396,16 @@
             </div>
         </main>
     </div>
+    <script>
+function openNav() {
+  document.getElementById("sidebar").style.width = "250px";
+  document.getElementById("main-content").style.marginLeft = "250px";
+}
+
+function closeNav() {
+  document.getElementById("sidebar").style.width = "0";
+  document.getElementById("main-content").style.marginLeft= "0";
+}
+</script>
 </body>
 </html>
