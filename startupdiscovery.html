@@ -241,26 +241,19 @@
             background: rgba(78, 205, 196, 0.1);
             color: #4ECDC4;
         }
-        @media only screen and (max-width:800px) {
-  /* For tablets: */
-  .nav {
-    width: 80%;
-    padding: 0;
-  }
-}
-@media only screen and (max-width:500px) {
-  /* For mobile phones: */
-  .nav {
-    width: 100%;
-    padding:15px;
-  }  
-  .nav-links {
-    padding-left: 30px;
-    overflow: auto;
-    white-space: nowrap;
-  }
-    .sidebar{
-        width: 40%;
+@media screen and (max-width: 1024px) {
+    .discovery-interface {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    .filter-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
 }
     </style>
