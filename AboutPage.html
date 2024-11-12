@@ -17,6 +17,50 @@
             color: #fff;
         }
 
+         .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 100;
+            padding: 1rem 2rem;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
         .about-page {
             max-width: 100%;
             overflow-x: hidden;
@@ -210,9 +254,42 @@
             font-size: 14px;
             line-height: 1.6;
         }
+                @media only screen and (max-width:800px) {
+  /* For tablets: */
+  .nav {
+    width: 80%;
+    padding: 0;
+  }
+}
+@media only screen and (max-width:500px) {
+  /* For mobile phones: */
+  .nav {
+    width: 100%;
+    padding:15px;
+  }  
+  .nav-links {
+    padding-left: 30px;
+    overflow: auto;
+    white-space: nowrap;
+  }    
+}
     </style>
 </head>
 <body>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="logo">
+                <a href="https://flash.zone/index.html">Flash</a>
+            </div>
+            <div class="nav-links">
+                <a href="https://anirudhbhanot.github.io/FlashApp/index.html">Home</a>
+                <a href="https://anirudhbhanot.github.io/FlashApp/PlatformPage.html">Platform</a>
+                <a href="https://anirudhbhanot.github.io/FlashApp/TechnologyPage.html">Technology</a>
+                <a href="https://anirudhbhanot.github.io/FlashApp/AboutPage.html">About</a>
+                <a href="https://anirudhbhanot.github.io/FlashApp/ContactPage.html">Contact</a>
+            </div>
+        </div>
+    </nav>
     <div class="about-page">
         <section class="hero-section">
             <h1 class="hero-title">Revolutionizing Venture Capital</h1>
